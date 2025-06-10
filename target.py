@@ -14,6 +14,6 @@ acceptable_temperature=(18,29) #acceptable monstera temperature of 18-29 degrees
 ideal_light_volt=(2.0,2.8) #ideal monstera lighting condition of 2-2.8 Volts, derived from 
                             #https://leafnjoy.com/monstera-plant-care/, calculation described in report
 
-acceptable_light_volt=(1,2) #acceptable monstera lighting condition of 2-2.8 Volts, derived from 
+acceptable_light_volt=(1.0,2.0) #acceptable monstera lighting condition of 2-2.8 Volts, derived from 
                             #https://leafnjoy.com/monstera-plant-care/, calculation described in report
 
