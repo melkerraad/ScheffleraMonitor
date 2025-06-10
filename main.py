@@ -1,20 +1,14 @@
 from machine import Pin
 import time
-
-led_red = Pin(15, Pin.OUT)
-led_yellow = Pin(14, Pin.OUT)
-led_green = Pin(13, Pin.OUT)
+import led
+import dht_sensor
 
 while True:
-    led_red.on()
-    time.sleep(1)
-    led_red.off()
-    time.sleep(1)
-    led_yellow.on()
-    time.sleep(1)
-    led_yellow.off()
-    time.sleep(1)
-    led_green.on()
-    time.sleep(1)
-    led_green.off()
-    time.sleep(1)
+    led.blink(led.red)
+    led.blink(led.yellow)
+    led.blink(led.green)
+    temp, humidity = dht_sensor.read_dht()
+    if temp is not None:
+        print("Temperature:", temp, "°C")
+        print("Humidity:", humidity, "%")
+    time.sleep(2)
