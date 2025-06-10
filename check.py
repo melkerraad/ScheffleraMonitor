@@ -21,6 +21,20 @@ def check_threshold(measurement, type):
         else:
             if target.acceptable_humidity[0] > measurement:
                 print("Air humidity too low!")
-            elif measurement > target.acceptable_temperature[1]:
+            elif measurement > target.acceptable_humidity[1]:
                 print("Air humidity too high!")
             return "poor"
+
+    if type == "light":
+        if target.ideal_light_volt[0] <= measurement <= target.ideal_light_volt[1]:
+            return "ideal"
+        elif target.acceptable_light_volt[0] <= measurement <= target.acceptable_light_volt[1]:
+            return "acceptable"
+        else:
+            if target.acceptable_light_volt[0] > measurement:
+                print("Too dark!")
+            elif measurement > target.acceptable_light_volt[1]:
+                print("Too bright!")
+            return "poor"
+
+
