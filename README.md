@@ -30,7 +30,7 @@ this project will provide deep insights into plant needs and serve as a tool for
 | Jumper wire cables (M/M, M/F) | Various  | 30cm                          | Circuit connections             |
 | Soil Hygrometer module        | 1        | Analog + Digital output       | Measure Soil Humidity           |
 
-I bought all compnents at [[Electrokit](https://www.electrokit.com)], all components apart from the [[Soil Hygrometer module]([https://www.electrokit.com](https://www.electrokit.com/en/jordfuktighetssensor))], was included in [[Start Kit - Applied IoT at Linnaeus University (2025)]([https://www.electrokit.com](https://www.electrokit.com/lnu-starter))]. The total cost for all components was approximately 400 SEK including shipping.
+I bought all compnents at [[Electrokit](https://www.electrokit.com)], all components apart from the [[Soil Hygrometer module](https://www.electrokit.com/en/jordfuktighetssensor)], was included in [[Start Kit - Applied IoT at Linnaeus University (2025)](https://www.electrokit.com/lnu-starter)]. The total cost for all components was approximately 400 SEK including shipping.
 
 //Include images HERE
 
