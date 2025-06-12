@@ -16,16 +16,24 @@ this project will provide deep insights into plant needs and serve as a tool for
 
 # Material
 
-Explain all material that is needed. All sensors, where you bought them and their specifications. Please also provide pictures of what you have bought and what you are using.
+//Explain all material that is needed. All sensors, where you bought them and their specifications. Please also provide pictures of what you have bought and what you are using.
 
-List of material
-What the different things (sensors, wires, controllers) do - short specifications
-Where you bought them and how much they cost
-Example:
+| Component                     | Quantity | Specification                | Purpose                          |
+|-------------------------------|----------|-------------------------------|----------------------------------|
+| Raspberry Pi Pico WH          | 1        | RP2040 with Wi-FI and bluetooh| Microcontroller (main unit)     |
+| Breadboard                    | 1        | 840 connections               | Connecting the components       |
+| DHT11                         | 1        | Digital                       | Measure air humidity & temperature|
+| CdS Photoresistor             | 1        | 4-7kΩ                         | Light level measurement         |
+| LEDs (Red, Yellow, Green)     | 3        | 5mm, Diffuse                  | Visual feedback                 |
+| 330Ω Resistors                | update   | 0.25W                         | Self-explanatory                |
+| 560Ω Resistors                | update   | 0.25W                         | Self-explanatory                |
+| Jumper wire cables (M/M, M/F) | Various  | 30cm                          | Circuit connections             |
+| Soil Hygrometer module        | 1        | Analog + Digital output       | Measure Soil Humidity           |
 
-IoT Thing	For this
-Perhaps	a table
-is a	jolly good idea?
+I bought all compnents at [[Electrokit](https://www.electrokit.com)], all components apart from the [[Soil Hygrometer module]([https://www.electrokit.com](https://www.electrokit.com/en/jordfuktighetssensor))], was included in [[Start Kit - Applied IoT at Linnaeus University (2025)]([https://www.electrokit.com](https://www.electrokit.com/lnu-starter))]. The total cost for all components was approximately 400 SEK including shipping.
+
+//Include images HERE
+
 In this project I have chosen to work with the Pycom LoPy4 device as seen in Fig. 1, it's a neat little device programmed by MicroPython and has several bands of connectivity. The device has many digital and analog input and outputs and is well suited for an IoT project.
 
 Fig. 1. LoPy4 with headers. Pycom.io
