@@ -3,6 +3,13 @@ import led
 import dht11 as dht_sensor
 import CdS
 import update_light
+import wifi
+
+#wifi.connect("WIFIHUB_690852","37y5uw6b")
+wifi.connect("Melkers iPhone (2)","hellothere1337")
+
+import os
+print(os.uname())
 
 while True:
     temp, humidity = dht_sensor.read_dht()
@@ -14,3 +21,5 @@ while True:
         print(f"Light sensor reading: {light_reading}, Voltage: {light_voltage:.2f} V")
     update_light.light_update(temp,humidity,light_voltage)
     time.sleep(2)
+
+
