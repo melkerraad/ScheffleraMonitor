@@ -4,6 +4,7 @@ import dht11 as dht_sensor
 import CdS
 import update_light
 import wifi
+import soil_sensor
 
 #wifi.connect("WIFIHUB_690852","37y5uw6b")
 wifi.connect("Melkers iPhone (2)","hellothere1337")
@@ -19,6 +20,9 @@ while True:
     light_reading, light_voltage = CdS.measure_light()
     if light_reading is not None:
         print(f"Light sensor reading: {light_reading}, Voltage: {light_voltage:.2f} V")
+    soil_humidity = soil_sensor.read_soil_humidity()
+    if soil_humidity is not None:
+        print("Soil Humidity: ", soil_humidity , "%")
     update_light.light_update(temp,humidity,light_voltage)
     time.sleep(2)
 
