@@ -21,4 +21,3 @@ def connect(ssid, password):
         status = wlan.ifconfig()
         print(f"IP address:{status[0]}")
         return status[0]
-#

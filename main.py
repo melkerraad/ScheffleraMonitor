@@ -7,7 +7,7 @@ import wifi
 import soil_sensor
 
 #wifi.connect("WIFIHUB_690852","37y5uw6b")
-wifi.connect("Melkers iPhone (2)","hellothere1337")
+#wifi.connect("Melkers iPhone (2)","hellothere1337")
 
 import os
 print(os.uname())
@@ -25,5 +25,4 @@ while True:
         print("Soil Humidity: ", soil_humidity , "%")
     update_light.light_update(temp,humidity,light_voltage)
     time.sleep(2)
-
 
