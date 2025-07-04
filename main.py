@@ -3,11 +3,8 @@ import led
 import dht11 as dht_sensor
 import CdS
 import update_light
-import wifi
 import soil_sensor
-
-#wifi.connect("WIFIHUB_690852","37y5uw6b")
-#wifi.connect("Melkers iPhone (2)","hellothere1337")
+import write_DB as db
 
 import os
 print(os.uname())
@@ -25,4 +22,11 @@ while True:
         print("Soil Humidity: ", soil_humidity , "%")
     update_light.light_update(temp,humidity,light_voltage)
     time.sleep(2)
-
+    fields = {
+        "temperature": temp,
+        "air_humidity": humidity,
+        "light_reading": light_reading,
+        "soil_humidity": soil_humidity
+    }
+    
+    db.send_to_influx("sensor_data", fields, tags="plant=Schefflera")
