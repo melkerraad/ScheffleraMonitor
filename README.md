@@ -1,15 +1,19 @@
-# The Monstera Monitor - by Melker Rååd (mr224tp)
+# The Schefflera Monitor - by Melker Rååd (mr224tp)
 
-The Monstera Monitor is an IoT device suited for monitoring environmental conditions, specifically for plants. It measures temperature, air humidity, soil humidity, and lighting. 
+The Schefflera Monitor is an IoT device suited for monitoring environmental conditions, specifically for plants. It measures temperature, air humidity, soil humidity, and lighting conditions. 
 The measurements are then compared to ideal and acceptable intervals, gathered from trusted sources. Based on the results, a LED which is either green (ideal), yellow (acceptable)
-or red (poor) will light up on the device. The hardware is relatively quick to set up, but the software aspects takes some time. A rough approximation of the total implementation time
+or red (poor) will light up on the device. 
+
+---Visualization in progress, will update later---
+
+The hardware is relatively quick to set up, but the software aspects takes some time. A rough approximation of the total implementation time
 would be 5 hours. 
 
 # Objective
 
 The idea for this device came from my personal lack of gardening experience. This spring, my partner has been doing an internship in another city and hence, her plants were under my care. 
-However, due to my not-so-green fingers, her beloved Monstera has started looking worse and worse. I found it difficult to cater to its needs and did not understand what I was doing wrong.
-Using the Monstera Monitor, I can utilize the power of IoT to consistently evaluate the plant's living conditions and react immediately when its condition deteriorates. Therefore, the core
+However, due to my not-so-green fingers, her beloved Schefflera has started looking worse and worse. I found it difficult to cater to its needs and did not understand what I was doing wrong.
+Using the Schefflera Monitor, I can utilize the power of IoT to consistently evaluate the plant's living conditions and react immediately when its condition deteriorates. Therefore, the core
 objective of this project is to provide a plant monitoring system that alerts the user when a plant needs attention. Additionally, gathering data over a long period of time could provide
 a good data source for a more tailored care. For instance, one could analyze fluctuations in soil and air humidity between seasons to create appropriate watering schedules. I believe that
 this project will provide deep insights into plant needs and serve as a tool for learning how to take proper care of plants.
@@ -30,9 +34,7 @@ this project will provide deep insights into plant needs and serve as a tool for
 | Jumper wire cables (M/M, M/F) | Various  | 30cm                          | Circuit connections             |
 | Soil Hygrometer module        | 1        | Analog + Digital output       | Measure Soil Humidity           |
 
-I bought all compnents at [[Electrokit](https://www.electrokit.com)], all components apart from the [[Soil Hygrometer module](https://www.electrokit.com/en/jordfuktighetssensor)], was included in [[Start Kit - Applied IoT at Linnaeus University (2025)](https://www.electrokit.com/lnu-starter)]. The total cost for all components was approximately 400 SEK including shipping.
-
-//Include images HERE
+I bought almost all components at [[Electrokit](https://www.electrokit.com)], all components apart from the [[Soil Hygrometer module](https://www.electrokit.com/en/jordfuktighetssensor)] and some additional [[Jumper Wire cables](https://www.amazon.se/-/en/ELEGOO-Multi-Color-Compatible-Arduino-Project/dp/B01EV70C78/ref=nav_signin?crid=1CNW654HMSUTJ&dib=eyJ2IjoiMSJ9.qTh1eH3WaOJLu45veLDAh-tkjZzYN05VXFVpEXCXp16hFg5JuWqPiWjB10J4-3bMfS44tfF6HIrWAxFPzW1KpcJIWY7siJ_pu-msBOjhW6wa08EVC0QZkcUrQEE0nnKiX9L1VHWO_d12fqbKjeYijj1x5ET4l-U-elego3Kp_QpTWUtJ2XCKjiW3zvX43lrwVB4SHA_an1ur-EyVWP-kyVZ0_cY1o32xkr43EjEnFx0IhdJBBeUGuc3yRxoVBbDepdLYaHhoCTBVrNSUAYmOs0d5a3VXLaTLVfTDDhfy2QE.gTIavKrJeXsNked39s42T2UjbokwTfyEFaY-XSeXow0&dib_tag=se&keywords=kopplingskabel&qid=1751035957&refinements=p_98%3A20692919031&rnid=20692918031&rps=1&sprefix=kopplingskabel%2Caps%2C98&sr=8-1&th=1)], was included in [[Start Kit - Applied IoT at Linnaeus University (2025)](https://www.electrokit.com/lnu-starter)]. The total cost for all components was approximately 500 SEK including shipping.
 
 In this project I have chosen to work with the Pycom LoPy4 device as seen in Fig. 1, it's a neat little device programmed by MicroPython and has several bands of connectivity. The device has many digital and analog input and outputs and is well suited for an IoT project.
 
@@ -40,17 +42,27 @@ Fig. 1. LoPy4 with headers. Pycom.io
 
 # Computer setup
 
-How is the device programmed. Which IDE are you using. Describe all steps from flashing the firmware, installing plugins in your favorite editor. How flashing is done on MicroPython. The aim is that a beginner should be able to understand.
+When programming this device, I have been using the Visual Studio Code IDE. A crucial first step was to install the PyMAKR extension, available from the Visual Studio Code marketplace. While PyMakr [[is officially designed](https://github.com/pycom/Pymakr)] is officially designed for Pycom devices, I found that it worked well for development with the Pico WH, likely since both expose a similar MicroPython USB serial interface. Using PyMAKR allowed me to upload code and interact with the device in PyMakr’s development mode. The main benefit from using the development mode is that the Pico WH is rebooted when files are changed. Hence, there was no need for manual rebooting. However since PyMakr is not officially supported for the Pico WH, some PyMAKRfeatures may be limited or unavailable.
 
-Chosen IDE
-How the code is uploaded
-Steps that you needed to do for your computer. Installation of Node.js, extra drivers, etc.
-Putting everything together
+These were the main steps for setting up the Pico WH:
+- The Pico WH was initially put into bootloader mode by holding the BOOTSEL button while connecting it to the via USB to a computer
+- The latest MicroPython firmware for the Pico WH was then downloaded from the official [[Raspberry Pi documentation](https://www.raspberrypi.com/documentation/microcontrollers/micropython.html)] and copied to the device’s USB mass storage.
+- After flashing the device, it appears as a serial device over USB.
+- Code is uploaded to the device and tested via PyMakr in development mode.
 
-How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
+//How is the device programmed. Which IDE are you using. Describe all steps from flashing the firmware, installing plugins in your favorite editor. How flashing is done on MicroPython. The aim is that a beginner should be able to understand.
 
-Circuit diagram (can be hand drawn)
-*Electrical calculations
+//Chosen IDE
+//How the code is uploaded
+//Steps that you needed to do for your computer. Installation of Node.js, extra drivers, etc.
+//Putting everything together
+
+//How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
+
+//Circuit diagram (can be hand drawn)
+//*Electrical calculations
+
+
 
 # Platform
 
@@ -80,7 +92,7 @@ Which wireless protocols did you use (WiFi, LoRa, etc …)?
 Which transport protocols were used (MQTT, webhook, etc …)
 *Elaborate on the design choices regarding data transmission and wireless protocols. That is how your choices affect the device range and battery consumption.
 
-#Presenting the data
+# Presenting the data
 
 Describe the presentation part. How is the dashboard built? How long is the data preserved in the database?
 
