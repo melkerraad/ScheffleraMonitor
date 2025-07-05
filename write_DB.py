@@ -3,6 +3,11 @@ import urequests as requests
 import time
 import keys
 
+influx_token = "uxJhhOdZDRqtAs7E7JWmjzjiz4kCttpgh0rUMH28mpqsnFRJtl7XXZ4QcQuTljIo6YB7fiVq_iw0g5KuSI8tKQ=="
+influx_url = "https://eu-central-1-1.aws.cloud2.influxdata.com/api/v2/write?org=IoT&bucket=data&precision=s"
+
+
+
 def send_to_influx(measurement, fields, tags=""):
     """
     measurement: string, e.g., "sensor_data"
@@ -16,12 +21,13 @@ def send_to_influx(measurement, fields, tags=""):
         line += f",{tags}"
     line += f" {field_str}"
     
+    
     headers = {
-        "Authorization": f"Token {keys.influx_token}",
+        "Authorization": f"Token {influx_token}",
         "Content-Type": "text/plain"
     }
     try:
-        response = requests.post(keys.influx_url, data=line, headers=headers)
+        response = requests.post(influx_url, data=line, headers=headers)
         if response.status_code == 204:
             print("Data sent successfully!")
         else:

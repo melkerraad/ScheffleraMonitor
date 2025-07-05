@@ -20,13 +20,14 @@ while True:
     soil_humidity = soil_sensor.read_soil_humidity()
     if soil_humidity is not None:
         print("Soil Humidity: ", soil_humidity , "%")
-    update_light.light_update(temp,humidity,light_voltage)
+    update_light.light_update(temp,humidity,light_voltage,soil_humidity)
     time.sleep(2)
+    
     fields = {
         "temperature": temp,
         "air_humidity": humidity,
         "light_reading": light_reading,
         "soil_humidity": soil_humidity
     }
-    
+
     db.send_to_influx("sensor_data", fields, tags="plant=Schefflera")

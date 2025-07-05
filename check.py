@@ -37,6 +37,18 @@ def check_threshold(measurement, type):
                 print("Too bright!")
             return "poor"
 
+    if type == "soil_humidity":
+        if target.ideal_soil_humidity[0] <= measurement <= target.ideal_soil_humidity[1]:
+            return "ideal"
+        elif target.acceptable_soil_humidity[0] <= measurement <= target.acceptable_soil_humidity[1]:
+            return "acceptable"
+        else:
+            if target.acceptable_soil_humidity[0] > measurement:
+                print("Soil humidity too low!")
+            elif measurement > target.acceptable_soil_humidity[1]:
+                print("Soil humidity too high!")
+            return "poor"
+
     else:
         print("Warning: Unknown measurement type:", type)
         return "unknown"
