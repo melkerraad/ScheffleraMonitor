@@ -42,7 +42,7 @@ Fig. 1. LoPy4 with headers. Pycom.io
 
 # Computer setup
 
-When programming this device, I have been using the Visual Studio Code IDE. A crucial first step was to install the PyMAKR extension, available from the Visual Studio Code marketplace. While PyMakr [[is officially designed](https://github.com/pycom/Pymakr)] is officially designed for Pycom devices, I found that it worked well for development with the Pico WH, likely since both expose a similar MicroPython USB serial interface. Using PyMAKR allowed me to upload code and interact with the device in PyMakr’s development mode. The main benefit from using the development mode is that the Pico WH is rebooted when files are changed. Hence, there was no need for manual rebooting. However since PyMakr is not officially supported for the Pico WH, some PyMAKRfeatures may be limited or unavailable.
+When programming this device, I have been using the Visual Studio Code IDE. A crucial first step was to install the PyMAKR extension, available from the Visual Studio Code marketplace. While PyMakr [[is officially designed](https://github.com/pycom/Pymakr)] for Pycom devices, I found that it worked well for development with the Pico WH, likely since both expose a similar MicroPython USB serial interface. Using PyMAKR allowed me to upload code and interact with the device in PyMakr’s development mode. The main benefit from using the development mode is that the Pico WH is rebooted when files are changed. Hence, there was no need for manual rebooting. However since PyMakr is not officially supported for the Pico WH, some PyMAKRfeatures may be limited or unavailable.
 
 These were the main steps for setting up the Pico WH:
 - The Pico WH was initially put into bootloader mode by holding the BOOTSEL button while connecting it to the via USB to a computer
@@ -65,6 +65,18 @@ These were the main steps for setting up the Pico WH:
 
 
 # Platform
+
+Platform-wise, my final setup uses InfluxDB Cloud combined with a locally hosted instance of Grafana. Initially, I experimented with a self‑hosted InfluxDB instance on a macOS server, but unfortunately I ran into a lot of networking, firewall, and binding issues that made the development and maintenance difficult. Moving to InfluxDB Cloud eliminated many of these issues, and it was very easy to use as a data source in Grafana. 
+
+InfluxDB Cloud offers multiple subscription types, and I decided to go for the free version. This version includes 30 days data storage, alerts (only on Slack) and up to 1,000 kb/s reads and 17 kb/s writes for up to 10,000 series. 
+
+
+
+
+---continue---
+
+Scaling Options: Usage‑based or Annual plan for production: unlimited retention, all alert handlers (including email), higher throughput, larger series count.
+
 
 Describe your choice of platform. If you have tried different platforms it can be good to provide a comparison.
 

@@ -4,7 +4,7 @@ import time
 import keys
 
 influx_token = keys.influx_token
-influx_url = keys.influx_url
+influx_url = keys.influx_url    
 
 
 
