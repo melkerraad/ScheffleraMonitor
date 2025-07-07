@@ -22,11 +22,11 @@ while True:
         print("Soil Humidity: ", soil_humidity , "%")
     update_light.light_update(temp,humidity,light_voltage,soil_humidity)
     time.sleep(2)
-    
+    #
     fields = {
         "temperature": temp,
         "air_humidity": humidity,
-        "light_reading": light_reading,
+        "light_reading": light_voltage,
         "soil_humidity": soil_humidity
     }
 

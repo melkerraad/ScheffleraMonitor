@@ -7,7 +7,7 @@ def light_update(temperature,humidity,light,soil_humidity):
     air_humidity_status=check.check_threshold(humidity,"humidity")
 
     light_status=check.check_threshold(light,"light")
-
+    
     soil_humidity_status=check.check_threshold(soil_humidity,"soil_humidity")
 
     if temperature_status=="poor" or air_humidity_status=="poor" or light_status=="poor" or soil_humidity_status=="poor":
