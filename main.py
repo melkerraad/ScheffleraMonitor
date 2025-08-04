@@ -1,5 +1,4 @@
 import time
-import led
 import dht11 as dht_sensor
 import CdS
 import update_light
@@ -21,8 +20,7 @@ while True:
     if soil_humidity is not None:
         print("Soil Humidity: ", soil_humidity , "%")
     update_light.light_update(temp,humidity,light_voltage,soil_humidity)
-    time.sleep(2)
-    #
+
     fields = {
         "temperature": temp,
         "air_humidity": humidity,
@@ -31,3 +29,4 @@ while True:
     }
 
     db.send_to_influx("sensor_data", fields, tags="plant=Schefflera")
+    time.sleep(60)

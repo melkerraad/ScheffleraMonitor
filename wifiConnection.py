@@ -6,12 +6,10 @@ def connect():
     wlan = network.WLAN(network.STA_IF)         # Put modem on Station mode
     if not wlan.isconnected():                  # Check if already connected
         print('connecting to network...')
-        wlan.active(True)                       # Activate network interface
-        # set power mode to get WiFi power-saving off (if needed)
+        wlan.active(True)                      
         wlan.config(pm = 0xa11140)
-        wlan.connect(keys.WIFI_SSID, keys.WIFI_PASS)  # Your WiFi Credential
+        wlan.connect(keys.WIFI_SSID, keys.WIFI_PASS)
         print('Waiting for connection...', end='')
-        # Check if it is connected otherwise wait
         while not wlan.isconnected() and wlan.status() >= 0:
             print('.', end='')
             sleep(1)

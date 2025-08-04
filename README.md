@@ -73,27 +73,13 @@ Describe platform in terms of functionality
 
 Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here, focus on the core functionalities. Have you done a specific function that does a calculation, or are you using clever function for sending data on two networks? Or, are you checking if the value is reasonable etc. Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
 
-import this as that
-
-def my_cool_function():
-    print('not much here')
-
-s.send(package)
-
 # Transmitting the data / connectivity
 
 Every minute the Pico WH sends a payload such as:
 ```python
 sensor_data temperature=23,air_humidity=45,light_reading=12000,soil_humidity=36
 ```
-
-
-How is the data transmitted to the internet or local server? Describe the package format. All the different steps that are needed in getting the data to your end-point. Explain both the code and choice of wireless protocols.
-
-How often is the data sent?
-Which wireless protocols did you use (WiFi, LoRa, etc …)?
-Which transport protocols were used (MQTT, webhook, etc …)
-*Elaborate on the design choices regarding data transmission and wireless protocols. That is how your choices affect the device range and battery consumption.
+These 60 s cycles give near-real-time visibility without overloading the network. I chose Wi-Fi (2.4 GHz) because it was already available at home and added no extra hardware cost. If you were monitoring outdoor plants or locations without Wi-Fi, I would recommend LTE for reliable coverage and higher throughput. While LoRa could greatly reduce power consumption, my device runs off USB power, so battery life wasn’t a constraint. Finally, I send data over HTTPS (port 443) using InfluxDB’s line protocol payload to ensure encryption, firewall-friendliness, and compatibility with cloud APIs.
 
 # Presenting the data
 
