@@ -1,0 +1,5 @@
+soil_sensor_dry=15
+soil_sensor_wet=60
+
+light_sensor_darkness=5000
+light_sensor_sun=65535

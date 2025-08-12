@@ -69,7 +69,7 @@ InfluxDB Cloud offers [[multiple subscription types](https://www.influxdata.com/
 Describe platform in terms of functionality
 *Explain and elaborate what made you choose this platform
 
-#The code
+# The code
 
 Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here, focus on the core functionalities. Have you done a specific function that does a calculation, or are you using clever function for sending data on two networks? Or, are you checking if the value is reasonable etc. Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
 
