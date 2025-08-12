@@ -8,6 +8,9 @@ import write_DB as db
 import os
 print(os.uname())
 
+import wifiConnection
+wifiConnection.connect()
+
 while True:
     temp, humidity = dht_sensor.read_dht()
     if temp is not None:
