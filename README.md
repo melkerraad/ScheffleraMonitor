@@ -118,7 +118,8 @@ Using the thresholds (derived from other sources, references are in target.py), 
 - Bake in oven at 105 Celsius for 2 hours (stir once every 30 minutes)
 
 You should now have very dry soil and it should look like this:
-![dry soil](images/dry_soil.HEIC)
+<img src="images/dry_soil.HEIC" alt="dry soil" height="150"/>
+
 
 Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here, focus on the core functionalities. Have you done a specific function that does a calculation, or are you using clever function for sending data on two networks? Or, are you checking if the value is reasonable etc. Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
 
