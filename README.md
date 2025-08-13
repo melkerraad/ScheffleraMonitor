@@ -84,12 +84,18 @@ These 60 s cycles give near-real-time visibility without overloading the network
 
 # Presenting the data
 
+
+![This is my Grafana dashboard](images/dashboard_grafana.png)
+
+
 Describe the presentation part. How is the dashboard built? How long is the data preserved in the database?
 
 Provide visual examples on how the dashboard looks. Pictures needed.
 How often is data saved in the database.
 *Explain your choice of database.
 *Automation/triggers of the data.
+
+
 
 # Finalizing the design
 
