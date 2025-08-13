@@ -19,4 +19,4 @@ def measure_light():
         normalized = max(0, min(1, normalized))
         calibrated_voltage = normalized * 3.3  # i scale it to voltage range
 
-    return reading, voltage, calibrated_voltage
+    return reading, calibrated_voltage

@@ -31,5 +31,5 @@ while True:
         "soil_humidity": soil_humidity
     }
 
-    #db.send_to_influx("sensor_data", fields, tags="plant=Schefflera")
-    time.sleep(10)
+    db.send_to_influx("sensor_data", fields, tags="plant=Schefflera")
+    time.sleep(60)
