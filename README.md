@@ -110,6 +110,15 @@ acceptable_temperature=(10,32)
 ```
 This separation of target values makes the application very versatile, as the values in target.py could be changed to match the requirements of other plants and therefore makes the application useful for all plants. 
 
+Using the thresholds (derived from other sources, references are in target.py), I quickly deduced that my light sensor and soil humidity sensor was not working as expected. When the plant had not been watered for 5 days, the soil humidity sensor reported a humidity of 90% in the soil. Therefore, I had to calibrate the values. For the soil humidity sensor, my approach was to test the sensor on totally dry soil and completely water-saturated soil. After some research, I came up with the following method:
+
+- Use (or buy) the same soil you used when planting the Schefflera.
+- Spread it out on a tray, or oven dish, with a depth of 2-3 centimetres.
+- It needs to be fine-grained, grind if needed.
+- Bake in oven at 105 Celsius for 2 hours (stir once every 30 minutes)
+
+You should now have very dry soil and it should look like this:
+![dry soil](images/dry_soil.HEIC)
 
 Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here, focus on the core functionalities. Have you done a specific function that does a calculation, or are you using clever function for sending data on two networks? Or, are you checking if the value is reasonable etc. Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
 
