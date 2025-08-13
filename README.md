@@ -114,14 +114,28 @@ Using the thresholds (derived from other sources, references are in target.py), 
 
 - Use (or buy) the same soil you used when planting the Schefflera.
 - Spread it out on a tray, or oven dish, with a depth of 2-3 centimetres.
-- It needs to be fine-grained, grind if needed.
+- It needs to be relatively fine-grained, grind if needed.
 - Bake in oven at 105 Celsius for 2 hours (stir once every 30 minutes)
 
 You should now have very dry soil and it should look like this:
 
-<img src="images/dry_soil.HEIC" alt="dry soil" height="150"/>
+<img src="images/dry_soil.HEIC" alt="dry soil" height="250"/>
 
+- Let it cool for approx. 10 minutes.
+- Stir the soil again and pour it into a coffee mug or bowl.
+- Place the soil humidity sensor in the mug (or bowl) and wait for 5-10 minutes.
+- Write down the soil humidity value, this is the "dry value", and pull out the sensor. 
+- Pour water slowly into the mug, small puddles are ok but no standing water.
+- Let it soak for 10 minutes.
+- Place the soil humidity sensor in the mug again and wait for 5-10 minutes.
+- Write down the soil humidity value, this is the "wet value", and pull out the sensor. 
+- Add the values to the calibrations.py file.
 
+For me, the values I obtained were: 
+```python
+soil_sensor_dry=15
+soil_sensor_wet=60
+```
 Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here, focus on the core functionalities. Have you done a specific function that does a calculation, or are you using clever function for sending data on two networks? Or, are you checking if the value is reasonable etc. Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
 
 # Transmitting the data / connectivity
