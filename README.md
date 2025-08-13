@@ -136,6 +136,25 @@ For me, the values I obtained were:
 soil_sensor_dry=15
 soil_sensor_wet=60
 ```
+I then rewrote the logic in the soil_sensor.py file to use my soil_sensor_dry value as 0% soil humidity and my soil_sensor_wet value as 100% soil humidity. To ensure reasonable values, I also ensured that no values lower than 0% or higher than 100% would be returned. See the updated logic below:
+
+```python
+def read_soil_humidity():
+    value = input.read_u16()  # 0 to 65535
+    raw_percent = (65535 - value) / 65535 * 100  # Convert to 0-100% (wet=high, dry=low)
+    
+    dry = calibrations.soil_sensor_dry
+    wet = calibrations.soil_sensor_wet
+    
+    if wet == dry:
+        return 0  # no division by zero
+    
+    moisture_percent_calibrated = (raw_percent - dry) * 100 / (wet - dry)
+    moisture_percent_calibrated = max(0, min(100, int(moisture_percent_calibrated)))
+    return moisture_percent_calibrated
+```
+With these modifications, the soil humidity sensor worked as expected. As previously mentioned, I also calibrated the light sensor. To not bloat this readme, I will describe that process in a very short manner. I noted the light sensor value in direct sunlight and then noted the value when in "complete" darkness (I put the sensor inside a room without windows and closed the door). I then added the values to calibrations.py and updated the logic in CdS.py. 
+
 Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here, focus on the core functionalities. Have you done a specific function that does a calculation, or are you using clever function for sending data on two networks? Or, are you checking if the value is reasonable etc. Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
 
 # Transmitting the data / connectivity
