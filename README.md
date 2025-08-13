@@ -118,6 +118,7 @@ Using the thresholds (derived from other sources, references are in target.py), 
 - Bake in oven at 105 Celsius for 2 hours (stir once every 30 minutes)
 
 You should now have very dry soil and it should look like this:
+
 <img src="images/dry_soil.HEIC" alt="dry soil" height="150"/>
 
 
