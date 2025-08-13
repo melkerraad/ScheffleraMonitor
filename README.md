@@ -102,12 +102,12 @@ while True:
     time.sleep(60)
 ```
 Inside the loop, the values from each sensor is read. Then, the LED lights on the breadboard are updated based on the values. Finally, the data is transmitted to InfluxDB Cloud. An interesting part of this application is actually the target values. Located in target.py, the target values are displayed in this format:
-´´´python
+```python
 
 ideal_temperature=(16,24)
 acceptable_temperature=(10,32) 
 
-´´´
+```
 This separation of target values makes the application very versatile, as the values in target.py could be changed to match the requirements of other plants and therefore makes the application useful for all plants. 
 
 
