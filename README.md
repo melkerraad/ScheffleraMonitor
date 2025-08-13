@@ -2,7 +2,7 @@
 
 The Schefflera Monitor is an IoT device suited for monitoring environmental conditions, specifically for plants. It measures temperature, air humidity, soil humidity, and lighting conditions. 
 The measurements are then compared to ideal and acceptable intervals, gathered from trusted sources (see targets.py). Based on the results, a LED which is either green (ideal), yellow (acceptable)
-or red (poor) will light up on the device. A poor reading also makes Grafana Unified Alerting dispatch a summary email with the latest values for all sensors and personalized recommendations to improve conditions. The hardware is relatively quick to set up, but the software aspects takes some time. A rough approximation of the total implementation time
+or red (poor) will light up on the device. As I live in a concrete building, the wifi connection can be somewhat unstable throughout the apartment. Therefore, the device must keep a stable upload flow to InfluxDB Cloud with retry/backoff so transient network issues won’t crash the system. A locally-hosted instance of Grafana then presents the data in a dashboard. A poor reading also makes Grafana Unified Alerting dispatch a summary email with the latest values for all sensors and personalized recommendations to improve conditions. The hardware is relatively quick to set up, but the software aspects takes some time. A rough approximation of the total implementation time
 would be 5 hours. 
 
 # Objective
@@ -41,14 +41,10 @@ These were the main steps for setting up the Pico WH:
 - The Pico WH was initially put into bootloader mode by holding the BOOTSEL button while connecting it to the via USB to a computer
 - The latest MicroPython firmware for the Pico WH was then downloaded from the official [[Raspberry Pi documentation](https://www.raspberrypi.com/documentation/microcontrollers/micropython.html)] and copied to the device’s USB mass storage.
 - After flashing the device, it appears as a serial device over USB.
+- Install [[Node.js](https://nodejs.org/en/download)]
+- At this point, WiFi and InfluxDB credentials should also be added to keys.py which should also be added to gitignore. I have not done this, for demonstrative purposes, but it should be done.
 - Code is uploaded to the device and tested via PyMakr in development mode.
 
-//How is the device programmed. Which IDE are you using. Describe all steps from flashing the firmware, installing plugins in your favorite editor. How flashing is done on MicroPython. The aim is that a beginner should be able to understand.
-
-//Chosen IDE
-//How the code is uploaded
-//Steps that you needed to do for your computer. Installation of Node.js, extra drivers, etc.
-//Putting everything together
 
 //How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
 
@@ -59,18 +55,61 @@ These were the main steps for setting up the Pico WH:
 
 # Platform
 
-Platform-wise, my final setup uses InfluxDB Cloud combined with a locally hosted instance of Grafana. Initially, I experimented with a self‑hosted InfluxDB instance on a macOS server, but unfortunately I ran into a lot of networking, firewall, and binding issues that made the development and maintenance difficult. Moving to InfluxDB Cloud eliminated many of these issues, and it was very easy to use as a data source in Grafana. 
+Platform-wise, my final setup uses InfluxDB Cloud combined with a locally hosted instance of Grafana. Initially, I experimented with a self‑hosted InfluxDB instance on a macOS server. The server responded correctly on localhost but unfortunately returned "Empty reply from server" or ECONNRESET when queried from LAN IP. After very extensive troubleshooting (using curl, tcpdump, firewall checks and reading influxd logs), I decided to migrate to InfluxDB Cloud. The migration eliminated many of these issues, and it was very easy to use as a data source in Grafana. 
 
 InfluxDB Cloud offers [[multiple subscription types](https://www.influxdata.com/influxdb-pricing/?_gl=1*15yxm1o*_gcl_au*MTAzOTcxMzUwNy4xNzUxNjU3MTMz*_ga*MTE2MTYyMDY0OS4xNzUxNjU3MTMz*_ga_CNWQ54SDD8*czE3NTE4NDY4NTEkbzUkZzEkdDE3NTE4NDY4NjkkajQyJGwwJGg0OTExMzExMA..)], and I decided to go for the free version. This version includes 30 days data storage, alerts (only on Slack) and up to 1,000 kb/s reads and 17 kb/s writes for up to 10,000 series. If you remember, this project enables alerts by email as well. However, the alerts are setup from the Grafana instance and not the InfluxDB cloud, hence being limited to Slack by InfluxDB does not affect the project. If this project's scope was extended, one would likely want to investigate the other subscription options. The main benefit of upgrading to a paid plan would be a data retention exceeding 30 days. Additionally, as all alert handlers (including email) are available for paid subscriptions, the alert responsibility could be moved from Grafana to InfluxDB. Hence, the project could be made less dependent on Grafana and only use it for visualization purposes. 
 
 
-
-
----continue---
-Describe platform in terms of functionality
-*Explain and elaborate what made you choose this platform
-
 # The code
+
+To clearly describe the logic of the code, the best decision is to look at my main.py function. This is the core of the application.
+
+```python
+import time
+import dht11 as dht_sensor
+import CdS
+import update_light
+import soil_sensor
+import write_DB as db
+
+import os
+print(os.uname())   #Useful for inspecting current OS and understanding logs
+
+import wifiConnection
+wifiConnection.connect()    #Handles wifi connection, very similar to example provided from the course
+
+while True:
+    temp, humidity = dht_sensor.read_dht()  #each sensor's logic is handled in its own file
+    if temp is not None:
+        print("Temperature:", temp, "°C")   #not ideal, but useful for seeing values directly in terminal. 
+        print("Humidity:", humidity, "%")
+    light_reading, light_voltage = CdS.measure_light()
+    if light_reading is not None:
+        print(f"Light sensor reading: {light_reading}, Voltage: {light_voltage:.2f} V")
+    soil_humidity = soil_sensor.read_soil_humidity()
+    if soil_humidity is not None:
+        print("Soil Humidity: ", soil_humidity , "%")
+    update_light.light_update(temp,humidity,light_voltage,soil_humidity) #Handles light logic (and thresholds)
+
+    fields = {
+        "temperature": temp,
+        "air_humidity": humidity,
+        "light_reading": light_voltage,
+        "soil_humidity": soil_humidity
+    }
+
+    db.send_to_influx("sensor_data", fields, tags="plant=Schefflera") #transmits the data
+    time.sleep(60)
+```
+Inside the loop, the values from each sensor is read. Then, the LED lights on the breadboard are updated based on the values. Finally, the data is transmitted to InfluxDB Cloud. An interesting part of this application is actually the target values. Located in target.py, the target values are displayed in this format:
+´´´python
+ideal_temperature=(16,24) #ideal schefflera temperature from
+                          #https://soltech.com/products/schefflera-care#:~:text=Schefflera%20plants%20thrive%20in%20temperatures,F%20(32°C).
+acceptable_temperature=(10,32) #acceptable schefflera temperature from
+                               #https://soltech.com/products/schefflera-care#:~:text=Schefflera%20plants%20thrive%20in%20temperatures,F%20(32°C).
+´´´
+This separation of target values makes the application very versatile, as the values in target.py could be changed to match the requirements of other plants and therefore makes the application useful for all plants. 
+
 
 Import core functions of your code here, and don't forget to explain what you have done! Do not put too much code here, focus on the core functionalities. Have you done a specific function that does a calculation, or are you using clever function for sending data on two networks? Or, are you checking if the value is reasonable etc. Explain what you have done, including the setup of the network, wireless, libraries and all that is needed to understand.
 
