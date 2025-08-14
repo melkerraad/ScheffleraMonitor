@@ -11,14 +11,7 @@ influx_url = "https://eu-central-1-1.aws.cloud2.influxdata.com/api/v2/write?org=
 
  
 def send_to_influx(measurement, fields, tags="", retries=3, delay=5):
-    """
-    Send sensor data to InfluxDB with retries on failure.
-    measurement: string, e.g., "sensor_data"
-    fields: dict, e.g., {"temperature":25, "humidity":44}
-    tags: string, e.g., "plant=Schefflera plant"
-    retries: number of attempts if sending fails (default 3)
-    delay: seconds to wait between retries (default 5)
-    """
+
     field_str = ",".join([f"{k}={v}" for k, v in fields.items()])
     line = f"{measurement}"
     if tags:
@@ -35,7 +28,7 @@ def send_to_influx(measurement, fields, tags="", retries=3, delay=5):
         try:
             response = requests.post(influx_url, data=line, headers=headers)
             if response.status_code == 204:
-                print("Data sent successfully!")
+                print("Data transmission success")
                 response.close()
                 return True
             else:
