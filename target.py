@@ -1,6 +1,6 @@
 
 ideal_humidity=(40,60) #ideal schefflera air humidity from
-                            #https://soltech.com/products/schefflera-care
+                            #https://soltech.com/products/schefflera-care 
 
 acceptable_humidity=(20,70) #acceptable schefflera air humidity from
                         #https://www.thesill.com/blogs/plants-101/how-to-care-for-a-schefflera

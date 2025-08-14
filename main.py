@@ -32,4 +32,4 @@ while True:
     }
 
     db.send_to_influx("sensor_data", fields, tags="plant=Schefflera")
-    time.sleep(60)
+    time.sleep(70)

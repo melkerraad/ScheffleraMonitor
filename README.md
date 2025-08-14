@@ -18,9 +18,9 @@ this project will provide deep insights into plant needs and serve as a tool for
 
 //Explain all material that is needed. All sensors, where you bought them and their specifications. Please also provide pictures of what you have bought and what you are using.
 
-| Component                     | Quantity | Specification                | Purpose                          |
+| Component                     | Quantity | Specification                | Picture                          |
 |-------------------------------|----------|-------------------------------|----------------------------------|
-| Raspberry Pi Pico WH          | 1        | RP2040 with Wi-FI and bluetooh| Microcontroller (main unit)     |
+| Raspberry Pi Pico WH          | 1        | RP2040 with Wi-FI and bluetooth| <img src="images/pico.png" alt="pico" height="150"/>    |
 | Breadboard                    | 1        | 840 connections               | Connecting the components       |
 | DHT11                         | 1        | Digital                       | Measure air humidity & temperature|
 | CdS Photoresistor             | 1        | 4-7kΩ                         | Light level measurement         |
@@ -110,7 +110,7 @@ acceptable_temperature=(10,32)
 ```
 This separation of target values makes the application very versatile, as the values in target.py could be changed to match the requirements of other plants and therefore makes the application useful for all plants. 
 
-Using the thresholds (derived from other sources, references are in target.py), I quickly deduced that my light sensor and soil humidity sensor was not working as expected. When the plant had not been watered for 5 days, the soil humidity sensor reported a humidity of 90% in the soil. Therefore, I had to calibrate the values. For the soil humidity sensor, my approach was to test the sensor on totally dry soil and completely water-saturated soil. After some research, I came up with the following method:
+Using the thresholds (derived from other sources, references are in target.py), I quickly deduced that my light sensor and soil humidity sensor was not working as expected. When the plant had not been watered for 7 days, the soil humidity sensor reported a humidity of 57% in the soil. Therefore, I had to calibrate the values. For the soil humidity sensor, my approach was to test the sensor on totally dry soil and completely water-saturated soil. After some research, I came up with the following method:
 
 - Use (or buy) the same soil you used when planting the Schefflera.
 - Spread it out on a tray, or oven dish, with a depth of 2-3 centimetres.
