@@ -29,7 +29,7 @@ this project will provide deep insights into plant needs and serve as a tool for
 | LEDs (Green)     | 1        | 5mm, Diffuse                  | <img src="images/green.png" alt="pico" height="150"/>                 |
 | 330Ω Resistors                | update   | 0.25W                         | Self-explanatory                |
 | 560Ω Resistors                | update   | 0.25W                         | Self-explanatory                |
-| Jumper wire cables (M/M, M/F) | Various  | 30cm                          | Circuit connections             |
+| Jumper wire cables (M/M, M/F) | Various  | 30cm                          | <img src="images/cables.png" alt="pico" height="150"/>              |
 | Soil Hygrometer module        | 1        | Analog + Digital output       | <img src="images/soil_humidity_sensor.png" alt="pico" height="150"/>            |
 | Soil                          | 3 dl     | Same soil as in the Schefflera| Calibrate Soil Hygrometer module|
 
