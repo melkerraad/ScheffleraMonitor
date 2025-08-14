@@ -21,8 +21,8 @@ this project will provide deep insights into plant needs and serve as a tool for
 | Component                     | Quantity | Specification                | Picture                          |
 |-------------------------------|----------|-------------------------------|----------------------------------|
 | Raspberry Pi Pico WH          | 1        | RP2040 with Wi-FI and bluetooth| <img src="images/pico.png" alt="pico" height="150"/>    |
-| Breadboard                    | 1        | 840 connections               | Connecting the components       |
-| DHT11                         | 1        | Digital                       | Measure air humidity & temperature|
+| Breadboard                    | 1        | 840 connections               | src="images/breadboard.png" alt="pico" height="150"/>       |
+| DHT11                         | 1        | Digital                       | Measure src="images/dht11.png" alt="pico" height="150"/>       |
 | CdS Photoresistor             | 1        | 4-7kΩ                         | Light level measurement         |
 | LEDs (Red, Yellow, Green)     | 3        | 5mm, Diffuse                  | Visual feedback                 |
 | 330Ω Resistors                | update   | 0.25W                         | Self-explanatory                |
