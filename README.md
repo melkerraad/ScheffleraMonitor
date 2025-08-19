@@ -91,9 +91,9 @@ During the project, some electrical calculations were essential. As you can see 
 
 With my voltage divider, the $V_{ADC}$ can be calculated as:
 
-$\[
+$\
 V_{ADC} = V_{in} \times \frac{R_2}{R_1 + R_2} = 5 \times \frac{4.7}{10 + 4.7} \approx 1.599\text{ V}
-\]$
+\$
 
 
 //How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
