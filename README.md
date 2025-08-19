@@ -47,6 +47,11 @@ These were the main steps for setting up the Pico WH:
 - At this point, WiFi and InfluxDB credentials should also be added to keys.py which should also be added to gitignore. I have not done this, for demonstrative purposes, but it should be done.
 - Code is uploaded to the device and tested via PyMakr in development mode.
 
+# Electronics
+
+The electrical wiring of my setup is shown in the following diagram, created through fritzing.
+
+<img src="images/fritzing.png" alt="fritzing" height="250"/> 
 
 //How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
 
