@@ -70,7 +70,7 @@ DHT11:
 - Connect a 10k ohm resistor between the VCC and GND pins of the sensor.
 - Connect the VCC pin to a 3.3V pin on the pico.
 - Connect the GND pin to a GND pin on the pico.
-- Connect the signal pin on the sensor to pin GP13 on the pico.
+- Connect the signal pin on the sensor to pin GP17 on the pico.
 
 Red LED: 
 - Connect one of the LED's legs to GND.
@@ -85,7 +85,7 @@ Yellow LED:
 Green LED: 
 - Connect one of the LED's legs to GND.
 - Connect a 330 ohm resistor to the LED's other leg.
-- On the other side of the resistor, connect a jumper wire to pin GP14 on the pico.
+- On the other side of the resistor, connect a jumper wire to pin GP13 on the pico.
 
 During the project, some electrical calculations were essential. As you can see in the wiring instructions for the soil humidity sensor, I created a voltage divider to prevent over-voltage to the pico's ADC. This is since the sensor is powered by 5V but the pico's ADC can only handle a max voltage of 3.3V.
 
@@ -93,7 +93,15 @@ With my voltage divider, the $V_{ADC}$ can be calculated as:
 
 $V_{ADC} = V_{in} \times \frac{R_2}{R_1 + R_2} = 5 \times \frac{4.7}{10 + 4.7} \approx 1.599\text{ V}$
 
-For the photoresistor, the main calculation I did was related to the maximum current $I$. To calculate the current, I used the formula $I = \frac{V_{in}}{R} = \frac{3.3}{10k} = 0.33 mA$ which is safe for the GP21 pin.   
+For the photoresistor, the main calculation I did was related to the maximum current $I$. To calculate the current, I used the formula 
+
+$I = \frac{V_{in}}{R} = \frac{3.3}{10k} = 0.33 mA$ 
+
+which is safe for the GP21 pin.   
+
+For the LED's, I calculated the maximum current using the same formula. However, to ensure correct calculations, it is important to include the forward voltage of the LEDs in the calculations (approximately 2 V for my LEDs). Hence, the formula I used was   
+
+$I = \frac{V_{in} - V_f}{R} = \frac{3.3 - 2}{330} =  3.94 mA$ 
 
 //How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
 
