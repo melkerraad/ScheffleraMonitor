@@ -16,8 +16,6 @@ this project will provide deep insights into plant needs and serve as a tool for
 
 # Material
 
-//Explain all material that is needed. All sensors, where you bought them and their specifications. Please also provide pictures of what you have bought and what you are using.
-
 | Component                     | Quantity | Specification                | Picture                          |
 |-------------------------------|----------|-------------------------------|----------------------------------|
 | Raspberry Pi Pico WH          | 1        | RP2040 with Wi-FI and bluetooth| <img src="images/pico.png" alt="pico" height="150"/>    |
@@ -27,9 +25,10 @@ this project will provide deep insights into plant needs and serve as a tool for
 | LED (Red)     | 1        | 5mm, Diffuse                  | <img src="images/red.png" alt="pico" height="150"/>                |
 | LED (Yellow)     | 1        | 5mm, Diffuse                  | <img src="images/yellow.png" alt="pico" height="150"/>              |
 | LEDs (Green)     | 1        | 5mm, Diffuse                  | <img src="images/green.png" alt="pico" height="150"/>                 |
-| 330Ω Resistors                | update   | 0.25W                         | Self-explanatory                |
-| 560Ω Resistors                | update   | 0.25W                         | Self-explanatory                |
-| Jumper wire cables (M/M, M/F) | Various  | 30cm                          | <img src="images/cables.png" alt="pico" height="150"/>              |
+| 330Ω Resistors                | 4   | 0.25W                         | <img src="images/330.png" alt="330" height="150"/>         |
+| 4.7 kΩ Resistors                | 1   | 0.25W                         | <img src="images/4.7k.png" alt="4.7k" height="150"/>         |
+| 10 kΩ Resistors                | 3   | 0.25W                         | <img src="images/10k.png" alt="10k" height="150"/>         |
+| Jumper wire cables (M/M, M/F) | Depends, but no more than 20  | 30cm                          | <img src="images/cables.png" alt="pico" height="150"/>              |
 | Soil Hygrometer module        | 1        | Analog + Digital output       | <img src="images/soil_humidity_sensor.png" alt="pico" height="150"/>            |
 | Soil                          | 3 dl     | Same soil as in the Schefflera| Calibrate Soil Hygrometer module|
 
