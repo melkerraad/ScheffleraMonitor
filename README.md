@@ -53,6 +53,40 @@ The electrical wiring of my setup is shown in the following diagram, created thr
 
 <img src="images/fritzing.png" alt="fritzing" height="250"/> 
 
+To properly connect the components you should go through the following steps.
+
+Soil Humidity Sensor:
+- Connect the two parts of the sensor using jumper wires.
+- Connect the VCC pin of the sensor to the VBUS pin 40 on the pico.
+- Connect the GND pin of the sensor to GND.
+- Connect the AO pin of the sensor to a 330 ohm resistor. Connect a jumper wire from the other end of the resistor to ADC pin 26 on the pico. To not damage the pin with 5V, you then need to add two serial 10k ohm and 4.7k ohm reistors between the jumper wire and GND. 
+
+Photoresistor (CdS):
+- Connect one leg of the photoresistor to 3.3V.
+- Connect the other leg of the photoresistor to pin GP21 on the pico using a jumper wire. 
+- On the other side of the jumper wire, place a 10k ohm reistor followed by a jumper wire to GND.
+
+DHT11:
+- Connect a 10k ohm resistor between the VCC and GND pins of the sensor.
+- Connect the VCC pin to a 3.3V pin on the pico.
+- Connect the GND pin to a GND pin on the pico.
+- Connect the signal pin on the sensor to pin GP13 on the pico.
+
+Red LED: 
+- Connect one of the LED's legs to GND.
+- Connect a 330 ohm resistor to the LED's other leg.
+- On the other side of the resistor, connect a jumper wire to pin GP15 on the pico.
+
+Yellow LED: 
+- Connect one of the LED's legs to GND.
+- Connect a 330 ohm resistor to the LED's other leg.
+- On the other side of the resistor, connect a jumper wire to pin GP14 on the pico.
+
+Green LED: 
+- Connect one of the LED's legs to GND.
+- Connect a 330 ohm resistor to the LED's other leg.
+- On the other side of the resistor, connect a jumper wire to pin GP14 on the pico.
+
 //How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
 
 //Circuit diagram (can be hand drawn)
