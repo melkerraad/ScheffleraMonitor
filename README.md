@@ -89,7 +89,7 @@ Green LED:
 
 During the project, some electrical calculations were essential. As you can see in the wiring instructions for the soil humidity sensor, I created a voltage divider to prevent over-voltage to the pico's ADC. This is since the sensor is powered by 5V but the pico's ADC can only handle a max voltage of 3.3V.
 
-With my voltage divider, the $V_ADC$ can be calculated as:
+With my voltage divider, the $V_{ADC}$ can be calculated as:
 
 \[
 V_{ADC} = V_{in} \times \frac{R_2}{R_1 + R_2} = 5 \times \frac{4.7}{10 + 4.7} \approx 1.599\text{ V}
