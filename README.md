@@ -89,7 +89,11 @@ Green LED:
 
 During the project, some electrical calculations were essential. As you can see in the wiring instructions for the soil humidity sensor, I created a voltage divider to prevent over-voltage to the pico's ADC. This is since the sensor is powered by 5V but the pico's ADC can only handle a max voltage of 3.3V.
 
-With my voltage divider, the $V_ADC$ can be calculated as $V_ADC= V_SENSOR*R_2/(R_1+R_2)=5*4.7/10+4.7=1.598...$ which is safe for the pico's ADC.
+With my voltage divider, the $V_ADC$ can be calculated as:
+
+\[
+V_{ADC} = V_{in} \times \frac{R_2}{R_1 + R_2} = 5 \times \frac{4.7}{10 + 4.7} \approx 1.599\text{ V}
+\]
 
 
 //How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
