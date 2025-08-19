@@ -93,6 +93,7 @@ With my voltage divider, the $V_{ADC}$ can be calculated as:
 
 $V_{ADC} = V_{in} \times \frac{R_2}{R_1 + R_2} = 5 \times \frac{4.7}{10 + 4.7} \approx 1.599\text{ V}$
 
+For the photoresistor, the main calculation I did was related to the maximum current $I$. To calculate the current, I used the formula $I = \frac{V_{in}}{R} = \frac{3.3}{10k} = 0.33 mA$ which is safe for the GP21 pin.   
 
 //How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
 
