@@ -231,15 +231,10 @@ At the top, a “Latest Measurement” panel shows the most recent sensor values
 
 Below, time-series graphs display the evolution of temperature, soil humidity, air humidity, and light intensity over the past 24 hours. This makes it easy to spot gradual changes, such as soil moisture increasing after watering or shifts in light exposure throughout the day. 
 
-To complement the trend graphs, I also included gauge panels below the time-series showing the average values for each metric over the last 24 hours. These gauges provide quick information about whether the plant has been in generally healthy conditions.
+To complement the trend graphs, I also included gauge panels below the time-series showing the average values for each metric over the last 24 hours. These gauges provide quick information about whether the plant has been in generally healthy conditions. If the data retention in the databse was not limited to 30 days (see Platform section), I also would have included graphs showcasing monthly averages.
 
 By combining real-time monitoring with longer-term averages, the dashboard helps distinguish short-lived fluctuations from meaningful trends. This way, I can make more informed decisions about watering or relocating the plant to improve its environment.
 
-Describe the presentation part. How is the dashboard built? How long is the data preserved in the database?
-
-Provide visual examples on how the dashboard looks. Pictures needed.
-How often is data saved in the database.
-*Explain your choice of database.
 *Automation/triggers of the data.
 
 
