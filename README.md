@@ -1,7 +1,6 @@
 # The Schefflera Monitor - by Melker Rååd (mr224tp)
 
-The Schefflera Monitor is an IoT device suited for monitoring environmental conditions, specifically for plants. It measures temperature, air humidity, soil humidity, and lighting conditions. 
-The measurements are then compared to ideal and acceptable intervals, gathered from trusted sources (see targets.py). Based on the results, a LED which is either green (ideal), yellow (acceptable)
+The Schefflera Monitor is an IoT device suited for monitoring environmental conditions, specifically for plants. It measures temperature, air humidity, soil humidity, and lighting conditions. It can also easily be extended to include additional sensors or monitor additional plants, as long as the additional sensors can be fitted on the breadboard. For multiple devices, connectivity changes are needed. The sensor measurements are compared to ideal and acceptable intervals, gathered from trusted sources (see targets.py). Based on the results, a LED which is either green (ideal), yellow (acceptable)
 or red (poor) will light up on the device. As I live in a concrete building, the wifi connection can be somewhat unstable throughout the apartment. Therefore, the device must keep a stable upload flow to InfluxDB Cloud with retry/backoff so transient network issues won’t crash the system. A locally-hosted instance of Grafana then presents the data in a dashboard. A poor reading also makes Grafana Unified Alerting dispatch a summary email with the latest values for all sensors and personalized recommendations to improve conditions. The hardware is relatively quick to set up, but the software aspects takes some time. A rough approximation of the total implementation time
 would be 5 hours. 
 
@@ -24,7 +23,7 @@ this project will provide deep insights into plant needs and serve as a tool for
 | CdS Photoresistor             | 1        | 4-7kΩ                         | <img src="images/photo_resistor.png" alt="pico" height="150"/>          |
 | LED (Red)     | 1        | 5mm, Diffuse                  | <img src="images/red.png" alt="pico" height="150"/>                |
 | LED (Yellow)     | 1        | 5mm, Diffuse                  | <img src="images/yellow.png" alt="pico" height="150"/>              |
-| LEDs (Green)     | 1        | 5mm, Diffuse                  | <img src="images/green.png" alt="pico" height="150"/>                 |
+| LED (Green)     | 1        | 5mm, Diffuse                  | <img src="images/green.png" alt="pico" height="150"/>                 |
 | 330Ω Resistors                | 4   | 0.25W                         | <img src="images/330.png" alt="330" height="150"/>         |
 | 4.7 kΩ Resistors                | 1   | 0.25W                         | <img src="images/4.7k.png" alt="4.7k" height="150"/>         |
 | 10 kΩ Resistors                | 3   | 0.25W                         | <img src="images/10k.png" alt="10k" height="150"/>         |
@@ -36,7 +35,7 @@ I bought almost all components at [[Electrokit](https://www.electrokit.com)], al
 
 # Computer setup
 
-When programming this device, I have been using the Visual Studio Code IDE. A crucial first step was to install the PyMAKR extension, available from the Visual Studio Code marketplace. While PyMakr [[is officially designed](https://github.com/pycom/Pymakr)] for Pycom devices, I found that it worked well for development with the Pico WH, likely since both expose a similar MicroPython USB serial interface. Using PyMAKR allowed me to upload code and interact with the device in PyMakr’s development mode. The main benefit from using the development mode is that the Pico WH is rebooted when files are changed. Hence, there was no need for manual rebooting. However since PyMakr is not officially supported for the Pico WH, some PyMAKRfeatures may be limited or unavailable. The primary script reads sensors on a one-minute interval and formats payloads in InfluxDB Line Protocol for transmission.
+When programming this device, I have been using the Visual Studio Code IDE. A crucial first step was to install the PyMAKR extension, available from the Visual Studio Code marketplace. While PyMakr [[is officially designed](https://github.com/pycom/Pymakr)] for Pycom devices, I found that it worked well for development with the Pico WH, likely since both expose a similar MicroPython USB serial interface. Using PyMAKR allowed me to upload code and interact with the device in PyMakr’s development mode. The main benefit from using the development mode is that the Pico WH is rebooted when files are changed. Hence, there was no need for manual rebooting. However since PyMakr is not officially supported for the Pico WH, some PyMAKR features may be limited or unavailable. If you have issues when using PyMAKR, I recommend trying similar softwares optimized for the Pico, such as Thonny. The primary script reads sensors on a one-minute interval and formats payloads in InfluxDB Line Protocol for transmission.
 
 These were the main steps for setting up the Pico WH:
 - The Pico WH was initially put into bootloader mode by holding the BOOTSEL button while connecting it to the via USB to a computer
@@ -52,13 +51,13 @@ The electrical wiring of my setup is shown in the following diagram, created thr
 
 <img src="images/fritzing.png" alt="fritzing" height="250"/> 
 
-To properly connect the components you should go through the following steps.
+Remember that the Pico pins and the sensors can be damaged if the current is too high. To properly connect the components you should go through the following steps. 
 
 Soil Humidity Sensor:
 - Connect the two parts of the sensor using jumper wires.
 - Connect the VCC pin of the sensor to the VBUS pin 40 on the pico.
 - Connect the GND pin of the sensor to GND.
-- Connect the AO pin of the sensor to a 330 ohm resistor. Connect a jumper wire from the other end of the resistor to ADC pin 26 on the pico. To not damage the pin with 5V, you then need to add two serial 10k ohm and 4.7k ohm reistors between the jumper wire and GND. 
+- Connect the AO pin of the sensor to a 330 ohm resistor. Connect a jumper wire from the other end of the resistor to ADC pin 26 on the pico. To not damage the pin with 5V, you then need to add two serial 10k ohm and 4.7k ohm resistors between the jumper wire and GND. 
 
 Photoresistor (CdS):
 - Connect one leg of the photoresistor to 3.3V.
@@ -98,16 +97,15 @@ $I = \frac{V_{in}}{R} = \frac{3.3}{10k} = 0.33 mA$
 
 which is safe for the GP21 pin.   
 
-For the LED's, I calculated the maximum current using the same formula. However, to ensure correct calculations, it is important to include the forward voltage of the LEDs in the calculations (approximately 2 V for my LEDs). Hence, the formula I used was   
+For the LED's, I calculated the maximum current using the same formula. However, to ensure correct calculations, it is important to include the forward voltage of the LEDs in the calculations (approximately 2 V for my LEDs). The forward voltage of LEDs was considered to ensure the correct current through the 330Ω resistors, preventing damage to the GPIO pins or LEDs. Hence, the formula I used was   
 
 $I = \frac{V_{in} - V_f}{R} = \frac{3.3 - 2}{330} =  3.94 mA$ 
 
-//How is all the electronics connected? Describe all the wiring, good if you can show a circuit diagram. Be specific on how to connect everything, and what to think of in terms of resistors, current and voltage. Is this only for a development setup or could it be used in production?
 
-//Circuit diagram (can be hand drawn)
-//*Electrical calculations
-
-
+My current electrical setup is not suited for production and should be considered a development setup due to multiple reaons:
+- All components are currently exposed to the elements and for production, they should be enclosed to protect against dust and water. 
+- The current setup requires USB power. A production-ready setup would likely include a battery-powered 5V supply.
+- The current setup does not include soldering and the wiring is therefore not reliable. For production, you should consider soldering the components to e.g. a PCB or perfboard.
 
 # Platform
 
@@ -219,13 +217,23 @@ Every minute the Pico WH sends a payload such as:
 ```python
 sensor_data temperature=23,air_humidity=45,light_reading=12000,soil_humidity=36
 ```
-These 60 s cycles give near-real-time visibility without overloading the network. I chose Wi-Fi (2.4 GHz) because it was already available at home and added no extra hardware cost. If you were monitoring outdoor plants or locations without Wi-Fi, I would recommend LTE for reliable coverage and higher throughput. While LoRa could greatly reduce power consumption, my device runs off USB power, so battery life wasn’t a constraint. Finally, I send data over HTTPS (port 443) using InfluxDB’s line protocol payload to ensure encryption, firewall-friendliness, and compatibility with cloud APIs.
+These 60 s cycles give near-real-time visibility without overloading the network. I chose Wi-Fi (2.4 GHz) because it was already available at home and added no extra hardware cost. If you were monitoring outdoor plants or locations without Wi-Fi, I would recommend LTE for reliable coverage and higher throughput. While LoRa could greatly reduce power consumption, my device runs off USB power, so battery life wasn’t a constraint. 
+
+To transmit the data, I use HTTPS (port 443) with InfluxDB’s line protocol. This choice ensures encryption via TLS/SSL, maintains firewall compatibility, and allows direct integration with InfluxDB Cloud without needing a separate broker. Since the system only involves a single device sending data once per minute, the overhead of HTTPS is minimal. I can see how protocols like MQTT would be more efficient for multiple devices or high-frequency messaging but for my current scale it is rather excessive. Migrating to MQTT could improve efficiency, but for now, HTTPS works well for the project’s objectives.
 
 # Presenting the data
 
+To visualize the measurements, I built a Grafana dashboard connected to my InfluxDB Cloud instance. The dashboard provides both live and historical insights into the plant’s environment. My dashboard is shown in the following image.
 
 ![This is my Grafana dashboard](images/dashboard_grafana.png)
 
+At the top, a “Latest Measurement” panel shows the most recent sensor values, with thresholds highlighted in green, yellow, or red depending on whether the readings fall within ideal, acceptable or poor ranges.
+
+Below, time-series graphs display the evolution of temperature, soil humidity, air humidity, and light intensity over the past 24 hours. This makes it easy to spot gradual changes, such as soil moisture increasing after watering or shifts in light exposure throughout the day. 
+
+To complement the trend graphs, I also included gauge panels below the time-series showing the average values for each metric over the last 24 hours. These gauges provide quick information about whether the plant has been in generally healthy conditions.
+
+By combining real-time monitoring with longer-term averages, the dashboard helps distinguish short-lived fluctuations from meaningful trends. This way, I can make more informed decisions about watering or relocating the plant to improve its environment.
 
 Describe the presentation part. How is the dashboard built? How long is the data preserved in the database?
 
